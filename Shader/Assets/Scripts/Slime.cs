@@ -13,11 +13,43 @@ public class Slime : MonoBehaviour
     Material _mat;
     Animator _anim;
     Color _defualt;
+    Coroutine _cor;
+
+    public bool _rayOn;
+
+    Vector3 _dir;
+
+    public float _DirX => _dir.x;
 
     private void Awake()
     {
         _mat = transform.GetComponentInChildren<Renderer>().material;
         _anim = GetComponent<Animator>();
+    }
+
+    private void Start()
+    {
+        _rayOn = false;
+    }
+
+    private void Update()
+    {
+        _dir = Camera.main.transform.position - transform.position;
+        _dir = _dir.normalized;
+        _dir.y = 0;
+
+        transform.rotation = Quaternion.LookRotation(_dir);
+
+        if (_rayOn)
+        {
+
+            if (_dir.x > 0.12f && _dir.x < 0.14f 
+                && Vector3.Distance(transform.position, Camera.main.transform.position) < 3)
+            {
+                transform.GetComponentInParent<RotationSlime>()._isRot = false;
+                _rayOn = false;
+            }
+        }
     }
 
     public void SetSlimeInfo()
@@ -32,7 +64,9 @@ public class Slime : MonoBehaviour
     
     public void SetSlime(float bright)
     {
-        StartCoroutine(Brightness(bright));
+        if (_cor != null) StopCoroutine(_cor);
+
+        _cor = StartCoroutine(Brightness(bright));
         if(bright != 0)
             _anim.SetTrigger("Attack");
     }
