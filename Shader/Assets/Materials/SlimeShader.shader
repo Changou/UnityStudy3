@@ -3,7 +3,8 @@ Shader "Custom/SlimeShader"
     Properties
     {
         _Color ("Color", Color) = (1,1,1,1)
-        _Bright("Brightness", Range(-1,1)) = 0
+        _Bright("Brightness", Range(-1,1)) = 0.5
+        _FlowSpeed("Flow Speed",Range(0,5)) = 0
         _MainTex ("Albedo (RGB)", 2D) = "white" {}
     }
     SubShader
@@ -27,6 +28,7 @@ Shader "Custom/SlimeShader"
 
         fixed4 _Color;
         float _Bright;
+        float _FlowSpeed;
 
         // Add instancing support for this shader. You need to check 'Enable Instancing' on materials that use the shader.
         // See https://docs.unity3d.com/Manual/GPUInstancing.html for more information about instancing.
@@ -37,7 +39,8 @@ Shader "Custom/SlimeShader"
 
         void surf (Input IN, inout SurfaceOutputStandard o)
         {
-            fixed4 c = _Color + _Bright;
+
+            fixed4 c = (_Color + _Bright) + (_SinTime.w *_FlowSpeed);
             o.Albedo = c.rgb;
             o.Alpha = 1;
         }

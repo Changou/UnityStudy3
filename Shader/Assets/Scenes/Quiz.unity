@@ -649,7 +649,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _slimeSlot: {fileID: 1621751535}
   _cursor: {fileID: 1170887269}
-  _bright: 0.7
+  _bright: 1
+  _blink: 5
   _rotSlime: {fileID: 789815432}
 --- !u!1 &1080725034
 GameObject:

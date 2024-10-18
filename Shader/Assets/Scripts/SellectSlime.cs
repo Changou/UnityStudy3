@@ -11,6 +11,7 @@ public class SellectSlime : MonoBehaviour
 
     [SerializeField] Cursor _cursor;
     [Header("밝기 정도"), Range(0,1)][SerializeField] float _bright;
+    [Header("깜빡임 정도"),Range(0,5)][SerializeField] float _blink;
 
     [Header("슬라임 판 회전")]
     [SerializeField] RotationSlime _rotSlime;
@@ -72,7 +73,7 @@ public class SellectSlime : MonoBehaviour
             {
                 _rotSlime._dir = _listSlime[i].GetComponent<Slime>()._DirX > 0 ? -1 : 1;
                     
-                _listSlime[i].transform.GetComponent<Slime>().SetSlime(_bright);
+                _listSlime[i].transform.GetComponent<Slime>().SetSlime(_blink);
                 _listSlime[i].transform.GetComponent<Slime>()._rayOn = true;
             }
             else

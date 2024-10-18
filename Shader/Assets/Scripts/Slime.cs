@@ -64,35 +64,36 @@ public class Slime : MonoBehaviour
     
     public void SetSlime(float bright)
     {
-        if (_cor != null) StopCoroutine(_cor);
+        _mat.SetFloat("_FlowSpeed", bright);
+        //if (_cor != null) StopCoroutine(_cor);
 
-        _cor = StartCoroutine(Brightness(bright));
+        //_cor = StartCoroutine(Brightness(bright));
         if(bright != 0)
             _anim.SetTrigger("Attack");
     }
 
-    IEnumerator Brightness(float bright)
-    {
-        float num;
-        if (bright != 0)
-        {
-            num = 0;
-            while (num < bright)
-            {
-                num += Time.deltaTime;
-                _mat.SetFloat("_Bright", num);
-                yield return null;
-            }
-        }
-        else
-        {
-            num = _mat.GetFloat("_Bright");
-            while(num > bright)
-            {
-                num -= Time.deltaTime;
-                _mat.SetFloat("_Bright", num);
-                yield return null;
-            }
-        }
-    }
+    //IEnumerator Brightness(float bright)
+    //{
+    //    float num;
+    //    if (bright != 0)
+    //    {
+    //        num = 0;
+    //        while (num < bright)
+    //        {
+    //            num += Time.deltaTime;
+    //            _mat.SetFloat("_Bright", num);
+    //            yield return null;
+    //        }
+    //    }
+    //    else
+    //    {
+    //        num = _mat.GetFloat("_Bright");
+    //        while(num > bright)
+    //        {
+    //            num -= Time.deltaTime;
+    //            _mat.SetFloat("_Bright", num);
+    //            yield return null;
+    //        }
+    //    }
+    //}
 }
